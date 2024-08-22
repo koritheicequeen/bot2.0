@@ -2503,7 +2503,7 @@ public void ProxyCheck(String yesOrNo, MessageReceivedEvent event, Member target
     userDataMap.putIfAbsent(userId, new UserData(userId));
     UserData userData = userDataMap.get(userId);
 	if (yesOrNo.equals("yes") || yesOrNo.equals("on")) {
-		while (userData.ProxyUserID == ""|| userData.ProxyUserID == null) {
+		while (userData.ProxyUserID.length()<1|| userData.ProxyUserID == null) {
 			userData.ProxyUserID = String.valueOf(roll(1000000000,event));
 			if (UserData.ProxyUserIDs.contains(userData.ProxyUserID)) {
 				userData.ProxyUserID = null;
@@ -2511,10 +2511,10 @@ public void ProxyCheck(String yesOrNo, MessageReceivedEvent event, Member target
 			UserData.ProxyUserIDs.add(userData.ProxyUserID);
 			
 		
-		event.getChannel().sendMessage("Proxy has been enabled").queue();
+		
 		userData.Proxy=true;
 	} else if (yesOrNo.equals("no") || yesOrNo.equals("off")){userData.Proxy = false;
-	event.getChannel().sendMessage("Proxy has been turned off").queue();}
+}
 	else event.getChannel().sendMessage("Please use Yes, On, Off, or No").queue();
 	 saveUserData();
 }
