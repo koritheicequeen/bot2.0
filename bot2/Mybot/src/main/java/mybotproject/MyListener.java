@@ -91,8 +91,6 @@ public class MyListener extends ListenerAdapter {
         
         Member targetMember = parts.length > 1 ? extractMemberFromMention(parts[1], event) : null;
         target = targetMember;
-        List<String> modifiers = new ArrayList<>();
-        List<String> dice = new ArrayList<>();
        
         
         
@@ -121,6 +119,8 @@ public class MyListener extends ListenerAdapter {
         		||(command.equals("!viewbag")  && !content.contains("@"))
         		||(command.equals("!proxy")  && !content.contains("@"))
         		||(command.equals("!evolutions"))
+        		||(command.equals("!r"))
+        		||(command.equals("!roll"))
         				
         		
         		
@@ -238,12 +238,12 @@ public class MyListener extends ListenerAdapter {
         	else if (command.equals("!addstrength")) {
             	if (parts.length < 3) {
                     event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
-            	} else handleStatCommand("strength", targetMember, amount, event);
+            	} else handleStatCommand("strength", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!adddexterity")) {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
             	} else
-                handleStatCommand("dexterity", targetMember, amount, event);
+                handleStatCommand("dexterity", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!health")) {
             	if (targetMember == null) {
             		targetMember = event.getMember();
@@ -253,135 +253,135 @@ public class MyListener extends ListenerAdapter {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
             	} else
-                handleStatCommand("agility", targetMember, amount, event);
+                handleStatCommand("agility", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!addendurance")) {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
             	} else
-                handleStatCommand("endurance", targetMember, amount, event);
+                handleStatCommand("endurance", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!addwillpower")) {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
             	} else
-                handleStatCommand("willpower", targetMember, amount, event);
+                handleStatCommand("willpower", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!addmagic")) {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
             	} else
-                handleStatCommand("magic", targetMember, amount, event);
+                handleStatCommand("magic", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!addexp")) {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
             	} else
-                handleStatCommand("EXP", targetMember, amount, event);
+                handleStatCommand("EXP", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!addvitality")) {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !add<stat> @mention <amount>").queue();
             	} else
-                handleStatCommand("vitality", targetMember, amount, event);
+                handleStatCommand("vitality", targetMember, amount, event,parts[parts.length-1]);
             }else if (command.equals("!addhealth")) {
             	if (parts.length < 3) {
-            		handleStatCommand("HP",event.getMember(), Integer.valueOf(parts[1]), event);
+            		handleStatCommand("HP",event.getMember(), Integer.valueOf(parts[1]), event,parts[parts.length-1]);
             	} else
-                handleStatCommand("HP", targetMember, amount, event);
+                handleStatCommand("HP", targetMember, amount, event,parts[parts.length-1]);
             }
             else if (command.equals("!removestrength")) {
             	if (parts.length < 3) {
             		 event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("strength", targetMember, amount, event);
+                handleRemoveStatCommand("strength", targetMember, amount, event,parts[parts.length-1]);
             }else if (command.equals("!removevitality")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("vitality", targetMember, amount, event);
+                handleRemoveStatCommand("vitality", targetMember, amount, event,parts[parts.length-1]);
             }else if (command.equals("!removehealth")) {
             	if (parts.length < 3) {
-            		 handleRemoveStatCommand("HP", event.getMember() , Integer.valueOf(parts[1]), event);
+            		 handleRemoveStatCommand("HP", event.getMember() , Integer.valueOf(parts[1]), event,parts[parts.length-1]);
             	} else
-                handleRemoveStatCommand("HP", targetMember, amount, event);
+                handleRemoveStatCommand("HP", targetMember, amount, event,parts[parts.length-1]);
             }
             else if (command.equals("!removedexterity")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("dexterity", targetMember, amount, event);
+                handleRemoveStatCommand("dexterity", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!removeagility")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("agility", targetMember, amount, event);
+                handleRemoveStatCommand("agility", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!removeendurance")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("endurance", targetMember, amount, event);
+                handleRemoveStatCommand("endurance", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!removewillpower")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("willpower", targetMember, amount, event);
+                handleRemoveStatCommand("willpower", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!removemagic")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("magic", targetMember, amount, event);
+                handleRemoveStatCommand("magic", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!removeexp")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !remove<stat> @mention <amount>").queue();
             	} else
-                handleRemoveStatCommand("EXP", targetMember, amount, event);
+                handleRemoveStatCommand("EXP", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!setstrength")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
             	} else
-                handleSetStatCommand("strength", targetMember, amount, event);
+                handleSetStatCommand("strength", targetMember, amount, event,parts[parts.length-1]);
             }else if (command.equals("!setvitality")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
             	} else
-                    handleSetStatCommand("vitality", targetMember, amount, event);
+                    handleSetStatCommand("vitality", targetMember, amount, event,parts[parts.length-1]);
             
             }else if (command.equals("!sethealth")) {
             	if (parts.length < 3) {
-            		handleSetStatCommand("HP", event.getMember(), Integer.valueOf(parts[1]), event);
+            		handleSetStatCommand("HP", event.getMember(), Integer.valueOf(parts[1]), event,parts[parts.length-1]);
             	} else		
-                handleSetStatCommand("HP", targetMember, amount, event);
+                handleSetStatCommand("HP", targetMember, amount, event,parts[parts.length-1]);
                
         } else if (command.equals("!setdexterity")) {
         	if (parts.length < 3) {
         		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
         	} else
-                handleSetStatCommand("dexterity", targetMember, amount, event);
+                handleSetStatCommand("dexterity", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!setagility")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
             	} else
-                handleSetStatCommand("agility", targetMember, amount, event);
+                handleSetStatCommand("agility", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!setendurance")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
             	} else
-                handleSetStatCommand("endurance", targetMember, amount, event);
+                handleSetStatCommand("endurance", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!setwillpower")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
             	} else
-                handleSetStatCommand("willpower", targetMember, amount, event);
+                handleSetStatCommand("willpower", targetMember, amount, event,parts[parts.length-1]);
             } else if (command.equals("!setmagic")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
             	} else
-                handleSetStatCommand("magic", targetMember, amount, event);
+                handleSetStatCommand("magic", targetMember, amount, event, parts[parts.length-1]);
             } else if (command.equals("!setexp")) {
             	if (parts.length < 3) {
             		event.getChannel().sendMessage("Please use the command in the format !set<stat> @mention <amount>").queue();
             	} else
-                handleSetStatCommand("EXP", targetMember, amount, event);
+                handleSetStatCommand("EXP", targetMember, amount, event, parts[parts.length-1]);
             } else if (command.equals("!viewstats")) {
-                handleViewStats(targetMember, event);
+                handleViewStats(targetMember, event, parts[2]);
             } else if (command.equals("!stats")) {
-                handleViewStats(event.getMember(), event);
+                handleViewStats(event.getMember(), event, parts[2]);
                 
             } else if (command.equals("!graburl")) {
             returnURL(event);
@@ -419,7 +419,7 @@ public class MyListener extends ListenerAdapter {
         		event.getChannel().sendMessage("Please include both the name and description inside of separate quotations").queue();
         		return;
         	}
-            	addAbility(targetMember, segments.get(1), segments.get(2),event);
+            	addAbility(targetMember, segments.get(1), segments.get(2),event, parts[2]);
             }else if (command.equals("!removeability")) {
             	if (targetMember == null) {
             		targetMember = event.getMember();
@@ -428,7 +428,7 @@ public class MyListener extends ListenerAdapter {
             		event.getChannel().sendMessage("Please include both the name and description inside of separate quotations").queue();
             		return;
             	}
-            	removeAbility(segments.get(1), targetMember, event);
+            	removeAbility(segments.get(1), targetMember, event, parts[2]);
             }else if (command.equals("!viewability")){
             	if (targetMember == null) {
             		targetMember = event.getMember();
@@ -437,7 +437,7 @@ public class MyListener extends ListenerAdapter {
             		event.getChannel().sendMessage("Please include the name inside quotations").queue();
             		return;
             	}
-            	viewAbility(segments.get(1), targetMember, event);
+            	viewAbility(segments.get(1), targetMember, event, parts[2]);
             } else if (command.equals("!raceinfo")){
             	if (segments.size()<2) {
             		event.getChannel().sendMessage("Please put the race name in quotes, and make sure to capitalize the name").queue();
@@ -501,7 +501,7 @@ public class MyListener extends ListenerAdapter {
         	if (targetMember == null) {
         		targetMember = event.getMember();
         	}
-            coinView(targetMember, event);
+            coinView(targetMember, event, parts[2]);
             }else if (command.equals("!givecoin")){
                 coinGive(targetMember,event.getMember(), event, parts[2], Integer.valueOf(parts[3]));
                 
@@ -511,7 +511,7 @@ public class MyListener extends ListenerAdapter {
             	if (targetMember == null) {
             		targetMember = event.getMember();
             	}
-                setAlignment(targetMember, event, segments.get(1));
+                setAlignment(targetMember, event, segments.get(1), parts[2]);
             }
         else if (command.equals("!removeitem")) {
         	if (targetMember == null) {
@@ -583,7 +583,7 @@ public class MyListener extends ListenerAdapter {
             	if (targetMember == null) {
             		targetMember = event.getMember();
             	}
-            	renameAbility(oldAbility, newAbility, targetMember, event);}
+            	renameAbility(oldAbility, newAbility, targetMember, event, parts[2]);}
             	else {
             		event.getChannel().sendMessage("Please provide both the Old name and new name in quotation marks").queue();
             	}
@@ -918,21 +918,30 @@ private void addAll(
 	    saveUserData();
 
 	    // Display the updated stats
-	    handleViewStats(targetMember, event);
+	    if (userData.Proxy) 
+	    handleViewStats(targetMember, event, "proxy");
+	    else handleViewStats(targetMember, event, "");
 	}
 
 
-    private void handleStatCommand(String stat, Member targetMember, int amount, MessageReceivedEvent event) {
+    private void handleStatCommand(String stat, Member targetMember, int amount, MessageReceivedEvent event, String proxy) {
         if (targetMember == null) {
             event.getChannel().sendMessage("Please mention a valid user.").queue();
             return;
         }
+        
 
         String userId = targetMember.getId();
 	    UserData userData = userDataMap.get(userId);
+	    Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
 	    if (userData.Proxy) {
 	    	userId = userData.ProxyUserID;
 	    }
+	    userData.Proxy = proxyHolder;
 	    userData = userDataMap.get(userId);
 	    if (userData.stats == null) {
  		    userData.stats = new HashMap<>();}
@@ -944,17 +953,24 @@ private void addAll(
         event.getChannel().sendMessageEmbeds(createEmbed(stat.substring(0, 1).toUpperCase() + stat.substring(1) + " added for " + targetMember.getEffectiveName() + "!", "Current " + stat + ": " + userData.getStat(stat))).queue();
     }
 
-    private void handleRemoveStatCommand(String stat, Member targetMember, int amount, MessageReceivedEvent event) {
+    private void handleRemoveStatCommand(String stat, Member targetMember, int amount, MessageReceivedEvent event, String proxy) {
         if (targetMember == null) {
             event.getChannel().sendMessage("Please mention a valid user.").queue();
             return;
         }
-
+        
         String userId = targetMember.getId();
 	    UserData userData = userDataMap.get(userId);
+	    Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
 	    if (userData.Proxy) {
 	    	userId = userData.ProxyUserID;
 	    }
+	    userData.Proxy = proxyHolder;
+	   
 	    userData = userDataMap.get(userId);
 	    if (userData.stats == null) {
  		    userData.stats = new HashMap<>();}
@@ -966,7 +982,7 @@ private void addAll(
         event.getChannel().sendMessageEmbeds(createEmbed(stat.substring(0, 1).toUpperCase() + stat.substring(1) + " removed for " + targetMember.getEffectiveName() + "!", "Current " + stat + ": " + userData.getStat(stat))).queue();
     }
 
-    private void handleSetStatCommand(String stat, Member targetMember, int amount, MessageReceivedEvent event) {
+    private void handleSetStatCommand(String stat, Member targetMember, int amount, MessageReceivedEvent event, String proxy) {
         if (targetMember == null) {
             event.getChannel().sendMessage("Please mention a valid user.").queue();
             return;
@@ -974,9 +990,16 @@ private void addAll(
 
         String userId = targetMember.getId();
 	    UserData userData = userDataMap.get(userId);
+	    Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
 	    if (userData.Proxy) {
 	    	userId = userData.ProxyUserID;
 	    }
+	    userData.Proxy = proxyHolder;
+	   
 	    userData = userDataMap.get(userId);
 	    if (userData.stats == null) {
  		    userData.stats = new HashMap<>();}
@@ -987,7 +1010,7 @@ private void addAll(
         event.getChannel().sendMessageEmbeds(createEmbed(stat.substring(0, 1).toUpperCase() + stat.substring(1) + " set for " + targetMember.getEffectiveName() + "!", "Current " + stat + ": " + userData.getStat(stat))).queue();
     }
 
-    private void handleViewStats(Member targetMember, MessageReceivedEvent event) {
+    private void handleViewStats(Member targetMember, MessageReceivedEvent event, String proxy) {
         if (targetMember == null) {
             event.getChannel().sendMessage("Please mention a valid user.").queue();
             return;
@@ -997,23 +1020,24 @@ private void addAll(
 	    UserData userData = userDataMap.get(userId);
 	   if (userData == null ) {
     	    userData = new UserData(userId);}
-    	   
+	   Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
 	    if (userData.Proxy) {
 	    	userId = userData.ProxyUserID;
-	    } 
+	    }
+	    userData.Proxy = proxyHolder;
+	    
 	    
 	    
 	    userData = userDataMap.get(userId);
 	    userDataMap.putIfAbsent(userId, new UserData(userId));
 	    userData = userDataMap.get(userId);
         String name = userData.getCdata("Character Name");
-        // Send message with image attachment
         if (userData.Cdata == null ) {
     	    userData.Cdata = new HashMap<>();
-    	    
-    	    if (name == null) {
-    	    	name = targetMember.getEffectiveName();
-    	    }
     	}if (name == null) {
 	    	name = targetMember.getEffectiveName();
 	    }
@@ -1477,14 +1501,22 @@ public static List<String> splitByQuotes(String message) {
     return segments;
 }
 
-private void addAbility(Member targetMember, String abilityName, String Abilitytext, MessageReceivedEvent event) {
+private void addAbility(Member targetMember, String abilityName, String Abilitytext, MessageReceivedEvent event, String proxy) {
 	if (targetMember == null) {
 		targetMember = event.getMember();}
-	String userId = targetMember.getId();
-    UserData userData = userDataMap.get(userId);
-    if (userData.Proxy) {
-    	userId = userData.ProxyUserID;
-    }
+	  String userId = targetMember.getId();
+	    UserData userData = userDataMap.get(userId);
+	   if (userData == null ) {
+  	    userData = new UserData(userId);}
+	   Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
+	    if (userData.Proxy) {
+	    	userId = userData.ProxyUserID;
+	    }
+	    userData.Proxy = proxyHolder;
     userData = userDataMap.get(userId);
     if (userData == null || userData.Abilities == null) {
 	    // Handle the situation where userData or Cdata is null
@@ -1506,15 +1538,22 @@ public static <K, V> Map.Entry<K, V> getEntryByIndex(LinkedHashMap<K, V> map, in
     }
     return null; // Return null if the index is out of bounds
 }
-private void removeAbility(String Ability, Member targetMember, MessageReceivedEvent event) {
+private void removeAbility(String Ability, Member targetMember, MessageReceivedEvent event, String proxy) {
 	if (targetMember == null) {
 		targetMember = event.getMember();}
-	String userId = targetMember.getId();
-    UserData userData = userDataMap.get(userId);
-    if (userData.Proxy) {
-    	userId = userData.ProxyUserID;
-    }
-
+	  String userId = targetMember.getId();
+	    UserData userData = userDataMap.get(userId);
+	   if (userData == null ) {
+  	    userData = new UserData(userId);}
+	   Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
+	    if (userData.Proxy) {
+	    	userId = userData.ProxyUserID;
+	    }
+	    userData.Proxy = proxyHolder;
     userData = userDataMap.get(userId);
 	    if (userData == null || userData.Abilities == null) {
 		    // Handle the situation where userData or Cdata is null
@@ -1527,14 +1566,22 @@ private void removeAbility(String Ability, Member targetMember, MessageReceivedE
 	        saveUserData();
 	    
 }
-private void viewAbility(String abilityName, Member targetMember, MessageReceivedEvent event) {
+private void viewAbility(String abilityName, Member targetMember, MessageReceivedEvent event, String proxy) {
 	if (targetMember == null) {
 		targetMember = event.getMember();}
-	String userId = targetMember.getId();
-    UserData userData = userDataMap.get(userId);
-    if (userData.Proxy) {
-    	userId = userData.ProxyUserID;
-    }
+	  String userId = targetMember.getId();
+	    UserData userData = userDataMap.get(userId);
+	   if (userData == null ) {
+  	    userData = new UserData(userId);}
+	   Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
+	    if (userData.Proxy) {
+	    	userId = userData.ProxyUserID;
+	    }
+	    userData.Proxy = proxyHolder;
 
     userData = userDataMap.get(userId);
 	    if (userData == null || userData.Abilities == null) {
@@ -1545,13 +1592,20 @@ private void viewAbility(String abilityName, Member targetMember, MessageReceive
 	    saveUserData();
 	    
 }
-private void renameAbility(String currentName, String newName, Member member, MessageReceivedEvent event) {
-	String userId = member.getId();
-    UserData userData = userDataMap.get(userId);
-    if (userData.Proxy) {
-    	userId = userData.ProxyUserID;
-    }
-
+private void renameAbility(String currentName, String newName, Member targetMember, MessageReceivedEvent event, String proxy) {
+	  String userId = targetMember.getId();
+	    UserData userData = userDataMap.get(userId);
+	   if (userData == null ) {
+  	    userData = new UserData(userId);}
+	   Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
+	    if (userData.Proxy) {
+	    	userId = userData.ProxyUserID;
+	    }
+	    userData.Proxy = proxyHolder;
     userData = userDataMap.get(userId);
 	    if (userData == null || userData.Abilities == null) {
 		    // Handle the situation where userData or Cdata is null
@@ -1792,19 +1846,27 @@ private void coinReturn(Member Member, MessageReceivedEvent event, String CoinTy
 	    		)).queue();
 	    saveUserData();
 }
-private void coinView(Member Member, MessageReceivedEvent event) {
-	if (Member == null) {
-		Member = event.getMember();
+private void coinView(Member targetMember, MessageReceivedEvent event,String proxy) {
+	if (targetMember == null) {
+		targetMember = event.getMember();
 	}
 	int value = 0;
     int value2 = 0;
     int value3 = 0;
     int value4 = 0;
-    String userId = Member.getId();
+    String userId = targetMember.getId();
     UserData userData = userDataMap.get(userId);
+   if (userData == null ) {
+	    userData = new UserData(userId);}
+   Boolean proxyHolder = userData.Proxy;
+    if (proxy.toLowerCase().contains("proxy")) {
+ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+    
     if (userData.Proxy) {
     	userId = userData.ProxyUserID;
     }
+    userData.Proxy = proxyHolder;
     userData = userDataMap.get(userId);
     if (userData == null || userData.Currency == null) {
 	    // Handle the situation where userData or Cdata is null
@@ -1935,16 +1997,23 @@ private void cointake(Member targetMember, MessageReceivedEvent event, String Co
 		    	 saveUserData();
 
 }
-private void setAlignment(Member targetMember, MessageReceivedEvent event, String newAlignment) {
+private void setAlignment(Member targetMember, MessageReceivedEvent event, String newAlignment, String proxy) {
 	if (targetMember == null) {
 		targetMember = event.getMember();
 	}
-	String userId = targetMember.getId();
-    UserData userData = userDataMap.get(userId);
-    if (userData.Proxy) {
-    	userId = userData.ProxyUserID;
-    }
-
+	  String userId = targetMember.getId();
+	    UserData userData = userDataMap.get(userId);
+	   if (userData == null ) {
+  	    userData = new UserData(userId);}
+	   Boolean proxyHolder = userData.Proxy;
+	    if (proxy.toLowerCase().contains("proxy")) {
+	ProxyCheck("yes", event, targetMember);
+}else ProxyCheck("no", event, targetMember);
+	    
+	    if (userData.Proxy) {
+	    	userId = userData.ProxyUserID;
+	    }
+	    userData.Proxy = proxyHolder;
     userData = userDataMap.get(userId);
 	    if (userData == null || userData.Cdata == null) {
 		    // Handle the situation where userData or Cdata is null
@@ -2434,9 +2503,14 @@ public void ProxyCheck(String yesOrNo, MessageReceivedEvent event, Member target
     userDataMap.putIfAbsent(userId, new UserData(userId));
     UserData userData = userDataMap.get(userId);
 	if (yesOrNo.equals("yes") || yesOrNo.equals("on")) {
-		if (userData.ProxyUserID == ""|| userData.ProxyUserID == null) {
+		while (userData.ProxyUserID == ""|| userData.ProxyUserID == null) {
 			userData.ProxyUserID = String.valueOf(roll(1000000000,event));
-		}
+			if (UserData.ProxyUserIDs.contains(userData.ProxyUserID)) {
+				userData.ProxyUserID = null;
+			}}
+			UserData.ProxyUserIDs.add(userData.ProxyUserID);
+			
+		
 		event.getChannel().sendMessage("Proxy has been enabled").queue();
 		userData.Proxy=true;
 	} else if (yesOrNo.equals("no") || yesOrNo.equals("off")){userData.Proxy = false;
@@ -2814,7 +2888,7 @@ int y = 400;
   		Name = Holder;
   	}
   	String text;
-  	System.out.println();
+
     
 	if(userData.getStat("Level")==0) {
   		text=	Name+ 
