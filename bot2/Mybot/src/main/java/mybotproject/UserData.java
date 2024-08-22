@@ -4,9 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class UserData {
 	
@@ -28,6 +30,7 @@ public class UserData {
     public String Avatar;
    
     String ProxyUserID;
+	public static Set<String> ProxyUserIDs;
     public UserData(String userId) {
     	
         this.userId = userId;
@@ -901,6 +904,7 @@ public class UserData {
         this.Proxy=false;
         this.ProxyUserID = "";
         this.Avatar="";
+        UserData.ProxyUserIDs = new HashSet<>();
   }
    
     public String getUserId() {
